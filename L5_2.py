@@ -28,4 +28,4 @@ for i in list_kd:
     kd_time = list_kd[i]['time']
     content = list_kd[i]['context']
     print(kd_time+' '+content)
-    print('----------------------------------------')
+    print('-----------------------------------------')
