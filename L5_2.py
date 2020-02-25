@@ -1,6 +1,10 @@
-import requests, bs4
+import requests, random
 
-url = 'https://www.kuaidi100.com/'
+cookie = input('请输入网页的cookie值')
+kuaidiType = input('请输入快递类型（拼音)')
+kuaidiID = input('请输入快递单号')
+
+url = 'https://www.kuaidi100.com/query?'
 
 headers = {
     'Accept': 'application/json, text/javascript, */*; q=0.01',
@@ -18,14 +22,15 @@ headers = {
     'X-Requested-With': 'XMLHttpRequest'
 }
 
-params = {
-    }
+a = random.random()
 
-res = requests.get(url, headers = headers)
+params = {'type': kuaidiType, 'postid': kuaidiID, 'temp': str(a), 'phone': ''}
+
+res = requests.get(url, headers=headers, params=params)
 kd_json = res.json()
 list_kd = kd_json['data']
-for i in list_kd:
-    kd_time = list_kd[i]['time']
-    content = list_kd[i]['context']
-    print(kd_time+' '+content)
+for item in list_kd:
+    kd_time = item['time']
+    content = item['context']
+    print(kd_time + ' ' + content)
     print('--------------------------')
