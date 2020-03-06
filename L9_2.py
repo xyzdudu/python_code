@@ -19,6 +19,15 @@ button.click()
 
 time.sleep(2)
 
-etitle = driver.find_element_by_class_name('content').find_element_by_tag_name('h1').text
+contents = driver.find_elements_by_class_name('content')
+etitle = contents[0].find_element_by_tag_name('h1').text
+ctitle = contents[1].find_element_by_tag_name('h1').text
+econtent = contents[0].find_element_by_tag_name('p').text
+ccontent = contents[1].find_element_by_tag_name('p').text
+
 print(etitle)
+print(econtent)
+print('----------------------')
+print(ctitle)
+print(ccontent)
 
