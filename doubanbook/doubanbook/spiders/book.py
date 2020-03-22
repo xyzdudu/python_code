@@ -7,7 +7,7 @@ class DouBanBookSpider(scrapy.Spider):
     name = 'doubanbook'
     allowed_domains = ['book.douban.com']
     start_urls = []
-    for x in range(1):
+    for x in range(3):
         url = 'https://book.douban.com/top250?start=' + str(x * 25)
         start_urls.append(url)
 
@@ -24,11 +24,11 @@ class DouBanBookSpider(scrapy.Spider):
         bs = bs4.BeautifulSoup(response.text, 'html.parser')
         bookname = bs.find('h1').find('span').text
         print(bookname)
-        datas = bs.find(class_='indent').find_all('li')
+        datas = bs.find(class_='comment-list hot show').find_all('li')
+        print(len(datas))
         for data in datas:
-        #遍历datas
             item = DoubanbookItem()
             item['bookname'] = bookname
-            item['id'] = data.find('h3').find('span', class_='comment-info').find('a').text
-            item['content'] = data.find(class_='short').text
+            item['id'] = data.find(class_='comment').find('h3').find('span', class_='comment-info').find('a').text
+            item['content'] = data.find('span', class_='short').text
             yield item
